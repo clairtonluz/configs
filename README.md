@@ -1,21 +1,44 @@
 # Configuração do ambiente
 
 ## Instalando pacotes
+
 ```shell
 sudo apt-get update -y
+sudo apt-get upgrade -y
 sudo apt-get dist-upgrade -y
 
-sudo apt-get install -y geany htop vim gimp code composer pidgin zsh dbeaver-ce openjdk-8-jdk-headless openjdk-11-jdk-headless openjdk-14-jdk-headless
+sudo apt-get install -y geany htop vim gimp code composer pidgin zsh dbeaver-ce openjdk-8-jdk openjdk-11-jdk openjdk-14-jdk
 ```
 
 ## Git
+
 ```shell
 git config --global credential.helper store
 git config --global user.name 'Clairton Carneiro Luz'
-git config --global user.email clairton.c.l@gmail.com
+git config --global user.email clairton.luz@seduc.ce.gov.br
+```
+
+# Configurando java no alternatives
+
+```shell
+sudo update-alternatives --install /usr/lib/jvm/jdk jdk /usr/lib/jvm/java-8-openjdk-amd64 100
+sudo update-alternatives --install /usr/lib/jvm/jdk jdk /usr/lib/jvm/java-11-openjdk-amd64 90
+sudo update-alternatives --install /usr/lib/jvm/jdk jdk /usr/lib/jvm/java-14-openjdk-amd64 100
+
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk/bin/java 100
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk/bin/java 100
+
+# selecione o path configurado anteriormente
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+
+# selecione a versão do java que voce deseja
+
+sudo update-alternatives --config jdk
 ```
 
 # Trocando bash default para zsh
+
 ```shell
 grep $USER /etc/passwd
 chsh -s $(which zsh)
@@ -23,10 +46,13 @@ grep $USER /etc/passwd
 ```
 
 # OhMyZsh
+
 ```shell
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
+
 ## edit `~/.zshrc` plugins zsh
+
 ```shell
 plugins=(
 git
@@ -43,11 +69,13 @@ node
 ```
 
 # Install asdf
+
 ```shell
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
 ```
 
 # Install node.js by asdf
+
 ```shell
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 
@@ -67,20 +95,21 @@ asdf global nodejs 14.13.0
 
 # Install docker
 
- Siga o tutorial oficial: https://docs.docker.com/engine/install/ubuntu/
+Siga o tutorial oficial: https://docs.docker.com/engine/install/ubuntu/
 
 docker composer: https://docs.docker.com/compose/install/
 
 ## Adicionar ao grupo do docker
- ```shell
- sudo usermod -aG docker $USER
- ```
 
+```shell
+sudo usermod -aG docker $USER
+```
 
 ## habilita docker para iniciar junto com o sistema
- ```shell 
- sudo systemctl enable docker
- ```
+
+```shell
+sudo systemctl enable docker
+```
 
 # DEBEAVER Add this lines above -vmargs into /usr/share/dbeaver/dbeaver.ini
 
@@ -90,8 +119,9 @@ docker composer: https://docs.docker.com/compose/install/
 ```
 
 # Editor default
+
 ```shell
-echo "export EDITOR=$(which vim)" >> ~/.bashrc	
+echo "export EDITOR=$(which vim)" >> ~/.bashrc
 echo "export EDITOR=$(which vim)" >> ~/.zshrc
 echo "set number" > ~/.vimrc
 echo "set expandtab" >> ~/.vimrc
@@ -99,6 +129,7 @@ echo "set autoindent" >> ~/.vimrc
 echo "syntax enable" >> ~/.vimrc
 echo "set wrap" >> ~/.vimrc
 ```
+
 # Modifica atalho de mover e trocar de workspace pois os atalhos originais já são usados por algumas IDEs de desenvolvimento
 
 ```shel
